@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c5e85cd1-6ad5-4b10-b43c-6ef5bec357b5</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>class1.py</StartupFile>
+    <StartupFile>main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,7 +22,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="class1.py" />
+    <Compile Include="main.py" />
     <Compile Include="UI_MainWindow.py" />
     <Compile Include="VENDING_MACHINE_FUNCS.py" />
     <Compile Include="OLIVIAS_VENDING_APP.py" />
@@ -37,6 +37,9 @@
       <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
       <Architecture>X64</Architecture>
     </Interpreter>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="requirements.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
