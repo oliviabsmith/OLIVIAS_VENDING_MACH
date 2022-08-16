@@ -54,7 +54,6 @@ class VENDING_MACHINE_FUNCS():
             changes = self.check_machine_coins(coin_dict,change)
             print(changes)
             print(change)
-        return changes
 
     def coffee_machine(self,coin,product):
         hot_drinks = {'Coffee':1.5,'Hot Chocolate': 1.0,'Hot Water':0.5}
