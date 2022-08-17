@@ -39,7 +39,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>5</number>
+     <number>3</number>
     </property>
     <widget class="QWidget" name="home">
      <property name="styleSheet">
@@ -455,6 +455,50 @@
       </item>
      </widget>
     </widget>
+    <widget class="QWidget" name="missing">
+     <widget class="QPushButton" name="continuebtn">
+      <property name="geometry">
+       <rect>
+        <x>100</x>
+        <y>80</y>
+        <width>101</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:Chartreuse</string>
+      </property>
+      <property name="text">
+       <string>Continue?</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="returnbtn">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>220</y>
+        <width>111</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color:red</string>
+      </property>
+      <property name="text">
+       <string>Return Money</string>
+      </property>
+     </widget>
+    </widget>
    </widget>
    <widget class="QPushButton" name="coffee_btn">
     <property name="geometry">
@@ -596,6 +640,57 @@
     </property>
     <property name="text">
      <string>Total</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="buybtn">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>240</x>
+      <y>490</y>
+      <width>101</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>15</pointsize>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color:Chartreuse</string>
+    </property>
+    <property name="text">
+     <string>BUY</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="correct_money">
+    <property name="geometry">
+     <rect>
+      <x>350</x>
+      <y>520</y>
+      <width>411</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+     </font>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::Box</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <property name="text">
+     <string>Select</string>
+    </property>
+    <property name="alignment">
+     <set>Qt::AlignCenter</set>
     </property>
    </widget>
   </widget>
