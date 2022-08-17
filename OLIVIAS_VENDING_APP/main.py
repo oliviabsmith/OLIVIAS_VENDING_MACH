@@ -1,7 +1,3 @@
-#Python 3.9 - Vending Machine
-#version 2.0
-#By Olivia Bridgewater-Smith
-
 import sys
 import math
 from PyQt6.QtCore import *
@@ -35,18 +31,10 @@ class MainWindow:
 
         #set totals
         self.input_total = 0
-        self.changedict = {}
-        self.buy_product = 0
-        self.product_cost = 0
-        self.machine = {}
-        self.change = 0
 
         self.vending_buttons()
         self.product_button()
         self.money_buttons()
-        
-
-        self.ui.buybtn.clicked.connect(self.buy_vending)
 
     def vending_buttons(self):
         #Set event when button clicked
@@ -60,23 +48,23 @@ class MainWindow:
 
     def product_button(self):
         #coffee buttons
-        self.coffee_prod = [self.ui.coffee_drink,self.ui.hot_choc,self.ui.hot_water]
+        self.ui.coffee_drink.clicked.connect(lambda: self.display_price(self.ui.coffee_drink,self.ui.cost_coffee))
+        self.ui.hot_choc.clicked.connect(lambda: self.display_price(self.ui.hot_choc,self.ui.cost_coffee))
+        self.ui.hot_water.clicked.connect(lambda: self.display_price(self.ui.hot_water,self.ui.cost_coffee))
 
         self.ui.coffee_drink.clicked.connect(lambda: self.display_price(self.ui.coffee_drink,self.ui.cost_coffee,self.coffee_machine,self.coffee_prod))
         self.ui.hot_choc.clicked.connect(lambda: self.display_price(self.ui.hot_choc,self.ui.cost_coffee,self.coffee_machine,self.coffee_prod))
         self.ui.hot_water.clicked.connect(lambda: self.display_price(self.ui.hot_water,self.ui.cost_coffee,self.coffee_machine,self.coffee_prod))
 
         #snack buttons
-        self.snack_prod = [self.ui.MM,self.ui.crisps,self.ui.snickers,self.ui.pantera_rosa]
-        self.ui.MM.clicked.connect(lambda: self.display_price(self.ui.MM,self.ui.cost_snack,self.snack_machine,self.snack_prod))
-        self.ui.crisps.clicked.connect(lambda: self.display_price(self.ui.crisps,self.ui.cost_snack,self.snack_machine,self.snack_prod))
-        self.ui.snickers.clicked.connect(lambda: self.display_price(self.ui.snickers,self.ui.cost_snack,self.snack_machine,self.snack_prod))
-        self.ui.pantera_rosa.clicked.connect(lambda: self.display_price(self.ui.pantera_rosa,self.ui.cost_snack,self.snack_machine,self.snack_prod))
+        self.ui.MM.clicked.connect(lambda: self.display_price(self.ui.MM,self.ui.cost_snack))
+        self.ui.crisps.clicked.connect(lambda: self.display_price(self.ui.crisps,self.ui.cost_snack))
+        self.ui.snickers.clicked.connect(lambda: self.display_price(self.ui.snickers,self.ui.cost_snack))
+        self.ui.pantera_rosa.clicked.connect(lambda: self.display_price(self.ui.pantera_rosa,self.ui.cost_snack))
 
         #drink buttons
-        self.drink_prod = [self.ui.coke,self.ui.water]
-        self.ui.coke.clicked.connect(lambda: self.display_price(self.ui.coke,self.ui.cost_drink,self.drink_machine,self.drink_prod))
-        self.ui.water.clicked.connect(lambda: self.display_price(self.ui.water,self.ui.cost_drink,self.drink_machine,self.drink_prod))
+        self.ui.coke.clicked.connect(lambda: self.display_price(self.ui.coke,self.ui.cost_drink))
+        self.ui.water.clicked.connect(lambda: self.display_price(self.ui.water,self.ui.cost_drink))
 
     def money_buttons(self):
         self.ui.onebtn.clicked.connect(lambda: self.total_money(1.00))
@@ -99,20 +87,12 @@ class MainWindow:
             else:
                 dict[i].setEnabled(True)
 
-         
-    def display_price(self,button,menu,dict,buttons):
-        displaymoney = 0
-        prices = dict['prices']
-        for key, value in prices.items():
+    def display_price(self,button,menu):
+        for key, value in self.vending_products.items():
             if key==button.text():
-                self.buy_product = key
-                self.product_cost = value
-                self.machine = dict
-                #displaymoney = value
-        self.update_button(buttons,button)   
-        menu.display(self.product_cost)
-        VendingApp.check_machine_product(self,self.buy_product)
-        
+                displaymoney = value
+        menu.display(displaymoney)
+        button.setEnabled(False)
         
     def go_back(self):
         #Event when a back button is pressed
@@ -124,7 +104,11 @@ class MainWindow:
         self.ui.snack_btn.setEnabled(True)
         self.ui.drink_btn.setEnabled(True)
         self.ui.coffee_btn.setEnabled(True)
-        self.enable_buttons(self.snackdict,False)
+        self.ui.onebtn.setEnabled(False)
+        self.ui.fiftybtn.setEnabled(False)
+        self.ui.twentybtn.setEnabled(False)
+        self.ui.tenbtn.setEnabled(False)
+        self.ui.fivebtn.setEnabled(False)
         self.ui.cost_coffee.display(0.0)
         self.ui.cost_drink.display(0.0)
         self.ui.cost_snack.display(0.0)
@@ -144,40 +128,20 @@ class MainWindow:
         self.ui.stackedWidget.setCurrentWidget(self.ui.coffee)
         self.ui.snack_btn.setEnabled(False)
         self.ui.drink_btn.setEnabled(False)
-        self.ui.buybtn.setEnabled(True)
-        self.enable_buttons(self.coffeedict,True)
+        self.enable_buttons(self.coffeedict)
 
     def drink_vending(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.drink)
         self.ui.snack_btn.setEnabled(False)
         self.ui.coffee_btn.setEnabled(False)
-        self.ui.buybtn.setEnabled(True)
-        self.enable_buttons(self.drinkdict,True)
+        self.enable_buttons(self.drinkdict)
 
     def snack_vending(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.snack)
         self.ui.coffee_btn.setEnabled(False)
         self.ui.drink_btn.setEnabled(False)
-        self.ui.buybtn.setEnabled(True)
-        self.enable_buttons(self.snackdict,True)
+        self.enable_buttons(self.snackdict)
 
-
-    def buy_vending(self):
-        self.ui.buybtn.setEnabled(False)
-        self.change = VendingApp.change_vending(self)
-        self.change = round(self.change,2)
-        print(self.change)
-        if self.change >= 0:
-            self.change_coins = VendingApp.check_machine_coins(self)
-            self.ui.stackedWidget.setCurrentWidget(self.ui.change)
-            VendingApp.remove_product(self,self.buy_product)
-            self.add_items()
-
-    def add_items(self):
-        list_ch = self.change_coins
-        for i in range(len(list_ch)):
-            item = QTableWidgetItem(str(list_ch[i]))
-            self.ui.change_table.setItem((i), 1, item)
 
 
 if __name__ == '__main__':
