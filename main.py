@@ -170,14 +170,14 @@ class MainWindow:
         if self.change >= 0:
             self.change_coins = VendingApp.check_machine_coins(self)
             self.ui.stackedWidget.setCurrentWidget(self.ui.change)
-    #        VendingApp.remove_product(self,self.buy_product)
-    #        self.add_items()
+            VendingApp.remove_product(self,self.buy_product)
+            self.add_items()
 
-    #def add_items(self):
-    #    list_ch = self.change_coins
-    #    for i in range(len(list_ch)):
-    #        item = QTableWidgetItem(str(list_ch[i]))
-    #        self.ui.change_table.setItem((i), 1, item)
+    def add_items(self):
+        list_ch = self.change_coins
+        for i in range(len(list_ch)):
+            item = QTableWidgetItem(str(list_ch[i]))
+            self.ui.change_table.setItem((i), 1, item)
 
 
 if __name__ == '__main__':

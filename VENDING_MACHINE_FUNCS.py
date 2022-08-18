@@ -67,16 +67,16 @@ class VendingApp:
             self.ui.buybtn.setEnabled(True)
 
 
-    #def remove_product(self,key):
-    #    dict = self.machine['produts']
-    #    value = dict[key]
-    #    try:
-    #        if value<1:
-    #            raise ValueError(f"{value} of products is not correct")
-    #    except ValueError as e:
-    #        print(e)
-    #    else:
-    #        dict[key]=value-1
+    def remove_product(self,key):
+        dict = self.machine['produts']
+        value = dict[key]
+        try:
+            if value<1:
+                raise ValueError(f"{value} of products is not correct")
+        except ValueError as e:
+            print(e)
+        else:
+            dict[key]=value-1
 
 
 
