@@ -46,7 +46,7 @@ class MainWindow:
         self.money_buttons()
         
 
-        #self.ui.buybtn.clicked.connect(self.buy_vending)
+        self.ui.buybtn.clicked.connect(self.buy_vending)
 
     def vending_buttons(self):
         #Set event when button clicked
