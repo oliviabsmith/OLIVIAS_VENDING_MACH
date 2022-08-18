@@ -25,7 +25,7 @@ class VendingApp:
         else:
             #changes = self.check_machine_coins(coins_inside,change)
             change = round(inserted_money-value,2)
-            self.ui.correct_money.setText(f"Thanks here is your ${change}")
+            self.ui.correct_money.setText(f"Thanks here is your ${change} change")
         return change
 
 
@@ -67,16 +67,16 @@ class VendingApp:
             self.ui.buybtn.setEnabled(True)
 
 
-    def remove_product(self,key):
-        dict = self.machine['produts']
-        value = dict[key]
-        try:
-            if value<1:
-                raise ValueError(f"{value} of products is not correct")
-        except ValueError as e:
-            print(e)
-        else:
-            dict[key]=value-1
+    #def remove_product(self,key):
+    #    dict = self.machine['produts']
+    #    value = dict[key]
+    #    try:
+    #        if value<1:
+    #            raise ValueError(f"{value} of products is not correct")
+    #    except ValueError as e:
+    #        print(e)
+    #    else:
+    #        dict[key]=value-1
 
 
 
