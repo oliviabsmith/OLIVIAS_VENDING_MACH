@@ -29,9 +29,9 @@ class MainWindow:
         self.drinkdict = [self.ui.onebtn,self.ui.fiftybtn,self.ui.twentybtn,self.ui.tenbtn]
         self.snackdict = [self.ui.onebtn,self.ui.fiftybtn,self.ui.twentybtn,self.ui.tenbtn,self.ui.fivebtn]
         
-        self.coffee_machine = {'coins':{1:0,0.5:15},'produts':{'Coffee':0,'Hot Chocolate': 10,'Hot Water':5},'prices':{'Coffee':1.50,'Hot Chocolate': 1.0,'Hot Water':0.5}}
+        self.coffee_machine = {'coins':{1:15,0.5:15},'produts':{'Coffee':0,'Hot Chocolate': 10,'Hot Water':5},'prices':{'Coffee':1.50,'Hot Chocolate': 1.0,'Hot Water':0.5}}
         self.drink_machine = {'coins':{1:15,0.5:15,0.2:5,0.1:3},'produts':{'Coke':12,'Water':7},'prices':{'Coke':1.20,'Water':0.70}}
-        self.snack_machine = {'coins':{1:0,0.5:15,0.2:5,0.1:3,0.05:3},'produts':{'MM':25,'Crisps':19,'Snickers':130,'Pantera Rosa':70},'prices':{'MM':2.5,'Crisps':1.90,'Snickers':1.30,'Pantera Rosa':0.70}}
+        self.snack_machine = {'coins':{1:15,0.5:15,0.2:5,0.1:3,0.05:3},'produts':{'MM':25,'Crisps':19,'Snickers':130,'Pantera Rosa':70},'prices':{'MM':2.5,'Crisps':1.90,'Snickers':1.30,'Pantera Rosa':0.70}}
 
         #set totals
         self.input_total = 0
@@ -169,19 +169,20 @@ class MainWindow:
     def buy_vending(self):
         #check what the change amount should be
         self.ui.buybtn.setEnabled(False)
-        self.change = VendingApp.change_vending(self)
+        self.change = VendingApp.change_vending(self,self.input_total,self.product_cost)
         self.change = round(self.change,2)
         print(self.change)
         #check if they have entered enough money to buy product
         if self.change >= 0:
-            self.change_coins = VendingApp.check_machine_coins(self)
+            self.change_coins = VendingApp.check_machine_coins(self,self.machine,self.change)
+            print(self.change_coins)
             self.ui.stackedWidget.setCurrentWidget(self.ui.change)
             VendingApp.remove_product(self,self.buy_product)
             self.add_items()
 
     def add_items(self):
         #add change array to the table on self.ui.change
-        list_ch = self.change_coins
+        list_ch = self.change_coins[0]
         for i in range(len(list_ch)):
             item = QTableWidgetItem(str(list_ch[i]))
             self.ui.change_table.setItem((i), 1, item)

@@ -7,15 +7,14 @@ import math
 from typing import final
 
 class VendingApp:
-    #def __init__(self):
-    #    self.changedict = []
 
-    def change_vending(self):
+
+    def change_vending(self,inserted_money,value):
         
         self.ui.buybtn.setEnabled(False)
 
-        inserted_money = round(self.input_total,2)
-        value = round(self.product_cost,2)
+        #inserted_money = round(self.input_total,2)
+        #value = round(self.product_cost,2)
         try:
             if inserted_money<value:
                 missing = value - inserted_money
@@ -30,26 +29,29 @@ class VendingApp:
             self.ui.correct_money.setText(f"Thanks here is your ${change} change")
         return change
 
-    def check_machine_coins(self):
+    def check_machine_coins(self, machine,change):
         #for key, value in vending_coin.items():
-        dict_1 = self.machine['coins']
+        dict_1 = machine['coins']
+        changedict = []
         for key, value in dict_1.items():
 
-            if value < 1 or self.change==0:
-                self.changedict.append(0)
+            if value < 1 or change<=0:
+                changedict.append(0)
             else:
-                coin_amount = math.floor(self.change/key)
+                coin_amount = math.floor(change/key)
+                print(coin_amount)
+                print(key)
                 dict_1[key]=value-coin_amount
-                self.changedict.append(coin_amount)
-                self.change = round(self.change - (coin_amount*key),2)
-                print(self.change)
+                changedict.append(coin_amount)
+                change = round(change - (coin_amount*key),2)
+                print(change)
         try:
-            if self.change != 0:
+            if change != 0:
                 self.ui.correct_money.setText(f"change not available")
                 raise ValueError(f"Coins returned. not enough change, insert exact amount")
         except ValueError as e:
             print(e)
-        return self.changedict
+        return changedict,change
 
 
     def check_machine_product(self,key):
