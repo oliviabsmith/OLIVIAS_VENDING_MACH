@@ -256,7 +256,7 @@ class Ui_MainWindow(object):
         self.hot_water.setText(_translate("MainWindow", "Hot Water"))
         self.back_btn.setText(_translate("MainWindow", "Back"))
         self.label_cost_coffee.setText(_translate("MainWindow", "Cost"))
-        self.MM.setText(_translate("MainWindow", "M&M"))
+        self.MM.setText(_translate("MainWindow", "MM"))
         self.crisps.setText(_translate("MainWindow", "Crisps"))
         self.snickers.setText(_translate("MainWindow", "Snickers"))
         self.pantera_rosa.setText(_translate("MainWindow", "Pantera Rosa"))

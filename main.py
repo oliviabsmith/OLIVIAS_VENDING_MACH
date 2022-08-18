@@ -104,7 +104,9 @@ class MainWindow:
     def display_price(self,button,menu,dict,buttons):
         #display prices when a product button is pressed
         prices = dict['prices']
+        print(prices)
         for key, value in prices.items():
+            print(button.text())
             if key==button.text():
                 self.buy_product = key
                 self.product_cost = value

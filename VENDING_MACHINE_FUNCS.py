@@ -56,6 +56,7 @@ class VendingApp:
 
     def check_machine_product(self,key):
         #Check if machine still has enough product stock
+        print(self.machine)
         dict_2 = self.machine['produts']
         value = dict_2[key]
         try:            
