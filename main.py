@@ -35,7 +35,6 @@ class MainWindow:
 
         #set totals
         self.input_total = 0
-        self.changedict = {}
         self.buy_product = 0
         self.product_cost = 0
         self.machine = {}
