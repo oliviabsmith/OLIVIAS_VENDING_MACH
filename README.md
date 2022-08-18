@@ -11,4 +11,4 @@ FIXES TO DO
 
 -add test for change_vending/check_machine_coins
 
--remove self from Vending_mach_funcs
+-remove ui functions from Vending_mach_funcs
