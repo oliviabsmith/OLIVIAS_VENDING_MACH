@@ -7,9 +7,11 @@ import math
 from typing import final
 
 class VendingApp:
+    def __init__(self):
+        self.changedict = []
 
     def change_vending(self):
-        self.changedict = []
+        
         self.ui.buybtn.setEnabled(False)
 
         inserted_money = round(self.input_total,2)
@@ -32,14 +34,14 @@ class VendingApp:
 
     def check_machine_coins(self):
         #for key, value in vending_coin.items():
-        dict = self.machine['coins']
+        dict_1 = self.machine['coins']
         for key, value in dict.items():
 
             if value < 1:
                 self.changedict.append(0)
             else:
                 coin_amount = math.floor(self.change/key)
-                dict[key]=value-coin_amount
+                dict_1[key]=value-coin_amount
                 self.changedict.append(coin_amount)
                 self.change = round(self.change - (coin_amount*key),2)
                 print(self.change)
@@ -53,8 +55,9 @@ class VendingApp:
 
 
     def check_machine_product(self,key):
-        dict = self.machine['produts']
-        value = dict[key]
+        #Check if machine still has enough product stock
+        dict_2 = self.machine['produts']
+        value = dict_2[key]
         try:            
             if value <= 0:
                 self.ui.correct_money.setText(f"product not available")
@@ -68,32 +71,13 @@ class VendingApp:
 
 
     def remove_product(self,key):
-        dict = self.machine['produts']
-        value = dict[key]
+        #Once item has been purchased remove item from stock
+        dict_3 = self.machine['produts']
+        value = dict_3[key]
         try:
             if value<1:
                 raise ValueError(f"{value} of products is not correct")
         except ValueError as e:
             print(e)
         else:
-            dict[key]=value-1
-
-
-
-
-    #def check_machine_product(self,button):
-    #    dict = self.machine['produts']
-    #    bool_1 = True
-    #    for key, value in dict.items():
-    #        if value <= 0 and button.text()==key:
-    #            self.ui.correct_money.setText(f"product not available")
-    #            bool_1 = False
-    #    if bool_1 == False:
-    #        self.ui.correct_money.setText(f"product not available")
-    #        self.ui.buybtn.setEnabled(False)
-    #    else:
-    #        self.ui.correct_money.setText(f"product available")
-    #        self.ui.buybtn.setEnabled(True)
-            #coffee_coins = {1:15,0.5:15}
-        #snack_coins = {1:15,0.5:15,0.2:5,0.1:3,0.05:3}
-        #drink_coins = {1:15,0.5:15,0.2:5,0.1:3}
+            dict_3[key]=value-1
