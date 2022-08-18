@@ -162,14 +162,14 @@ class MainWindow:
         self.enable_buttons(self.snackdict,True)
 
 
-    #def buy_vending(self):
-    #    self.ui.buybtn.setEnabled(False)
-    #    self.change = VendingApp.change_vending(self)
-    #    self.change = round(self.change,2)
-    #    print(self.change)
-    #    if self.change >= 0:
-    #        self.change_coins = VendingApp.check_machine_coins(self)
-    #        self.ui.stackedWidget.setCurrentWidget(self.ui.change)
+    def buy_vending(self):
+        self.ui.buybtn.setEnabled(False)
+        self.change = VendingApp.change_vending(self)
+        self.change = round(self.change,2)
+        print(self.change)
+        if self.change >= 0:
+            self.change_coins = VendingApp.check_machine_coins(self)
+            self.ui.stackedWidget.setCurrentWidget(self.ui.change)
     #        VendingApp.remove_product(self,self.buy_product)
     #        self.add_items()
 
