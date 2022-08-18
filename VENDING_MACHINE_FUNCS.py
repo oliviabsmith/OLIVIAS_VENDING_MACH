@@ -7,8 +7,8 @@ import math
 from typing import final
 
 class VendingApp:
-    def __init__(self):
-        self.changedict = []
+    #def __init__(self):
+    #    self.changedict = []
 
     def change_vending(self):
         
@@ -30,14 +30,12 @@ class VendingApp:
             self.ui.correct_money.setText(f"Thanks here is your ${change} change")
         return change
 
-
-
     def check_machine_coins(self):
         #for key, value in vending_coin.items():
         dict_1 = self.machine['coins']
-        for key, value in dict.items():
+        for key, value in dict_1.items():
 
-            if value < 1:
+            if value < 1 or self.change==0:
                 self.changedict.append(0)
             else:
                 coin_amount = math.floor(self.change/key)
@@ -56,9 +54,9 @@ class VendingApp:
 
     def check_machine_product(self,key):
         #Check if machine still has enough product stock
-        print(self.machine)
         dict_2 = self.machine['produts']
         value = dict_2[key]
+        self.ui.buybtn.setEnabled(True)
         try:            
             if value <= 0:
                 self.ui.correct_money.setText(f"product not available")

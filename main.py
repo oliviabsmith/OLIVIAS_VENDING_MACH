@@ -29,9 +29,9 @@ class MainWindow:
         self.drinkdict = [self.ui.onebtn,self.ui.fiftybtn,self.ui.twentybtn,self.ui.tenbtn]
         self.snackdict = [self.ui.onebtn,self.ui.fiftybtn,self.ui.twentybtn,self.ui.tenbtn,self.ui.fivebtn]
         
-        self.coffee_machine = {'coins':{1:15,0.5:15},'produts':{'Coffee':0,'Hot Chocolate': 10,'Hot Water':5},'prices':{'Coffee':1.50,'Hot Chocolate': 1.0,'Hot Water':0.5}}
+        self.coffee_machine = {'coins':{1:0,0.5:15},'produts':{'Coffee':0,'Hot Chocolate': 10,'Hot Water':5},'prices':{'Coffee':1.50,'Hot Chocolate': 1.0,'Hot Water':0.5}}
         self.drink_machine = {'coins':{1:15,0.5:15,0.2:5,0.1:3},'produts':{'Coke':12,'Water':7},'prices':{'Coke':1.20,'Water':0.70}}
-        self.snack_machine = {'coins':{1:15,0.5:15,0.2:5,0.1:3,0.05:3},'produts':{'MM':25,'Crisps':19,'Snickers':130,'Pantera Rosa':70},'prices':{'MM':2.5,'Crisps':1.90,'Snickers':1.30,'Pantera Rosa':0.70}}
+        self.snack_machine = {'coins':{1:0,0.5:15,0.2:5,0.1:3,0.05:3},'produts':{'MM':25,'Crisps':19,'Snickers':130,'Pantera Rosa':70},'prices':{'MM':2.5,'Crisps':1.90,'Snickers':1.30,'Pantera Rosa':0.70}}
 
         #set totals
         self.input_total = 0
@@ -39,7 +39,7 @@ class MainWindow:
         self.product_cost = 0
         self.machine = {}
         self.change = 0
-
+        self.changedict = []
         self.vending_buttons()
         self.product_button()
         self.money_buttons()
@@ -101,25 +101,25 @@ class MainWindow:
                 dict[i].setEnabled(True)
 
          
-    def display_price(self,button,menu,dict,buttons):
+    def display_price(self,button,menu,dict_1,buttons):
         #display prices when a product button is pressed
-        prices = dict['prices']
-        print(prices)
+        prices = dict_1['prices']
         for key, value in prices.items():
-            print(button.text())
             if key==button.text():
                 self.buy_product = key
                 self.product_cost = value
-                self.machine = dict
-        self.update_button(buttons,button)   
-        menu.display(self.product_cost)
-        VendingApp.check_machine_product(self,self.buy_product)
+                self.machine = dict_1
+                self.update_button(buttons,button)   
+                menu.display(self.product_cost)
+                VendingApp.check_machine_product(self,self.buy_product)
+                
+
         
         
     def go_back(self):
         #Event when a back button is pressed
         if self.input_total>0:
-            self.ui.correct_money.setText(f"Coins have been returned")
+            self.ui.correct_money.setText(f"${self.input_total} is been returned")
             self.input_total = 0
             self.change = 0
         self.ui.stackedWidget.setCurrentWidget(self.ui.home)
@@ -147,14 +147,14 @@ class MainWindow:
         self.ui.stackedWidget.setCurrentWidget(self.ui.coffee)
         self.ui.snack_btn.setEnabled(False)
         self.ui.drink_btn.setEnabled(False)
-        self.ui.buybtn.setEnabled(True)
+        #self.ui.buybtn.setEnabled(True)
         self.enable_buttons(self.coffeedict,True)
 
     def drink_vending(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.drink)
         self.ui.snack_btn.setEnabled(False)
         self.ui.coffee_btn.setEnabled(False)
-        self.ui.buybtn.setEnabled(True)
+        #self.ui.buybtn.setEnabled(True)
         self.enable_buttons(self.drinkdict,True)
 
     def snack_vending(self):
@@ -162,7 +162,7 @@ class MainWindow:
         self.ui.stackedWidget.setCurrentWidget(self.ui.snack)
         self.ui.coffee_btn.setEnabled(False)
         self.ui.drink_btn.setEnabled(False)
-        self.ui.buybtn.setEnabled(True)
+        #self.ui.buybtn.setEnabled(True)
         self.enable_buttons(self.snackdict,True)
 
 
