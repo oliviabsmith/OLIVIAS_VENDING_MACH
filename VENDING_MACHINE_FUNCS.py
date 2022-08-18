@@ -11,23 +11,28 @@ class VendingApp:
 
     def change_vending(self,inserted_money,value):
         
-        self.ui.buybtn.setEnabled(False)
+        #self.ui.buybtn.setEnabled(False)
 
         #inserted_money = round(self.input_total,2)
         #value = round(self.product_cost,2)
+
+        buy_button_bool = False
         try:
             if inserted_money<value:
                 missing = value - inserted_money
                 change = -missing
+                buy_button_bool = True
                 raise ValueError(f"{missing} cents is missing from total")
         except ValueError as e:
-            self.ui.correct_money.setText(f"${missing} missing from total.")# missing from total")
-            self.ui.buybtn.setEnabled(True)
+            print(e)
+
+            #self.ui.correct_money.setText(f"${missing} missing from total.")# missing from total")
+            #self.ui.buybtn.setEnabled(True)
         else:
-            #changes = self.check_machine_coins(coins_inside,change)
+            buy_button_bool = False
             change = round(inserted_money-value,2)
-            self.ui.correct_money.setText(f"Thanks here is your ${change} change")
-        return change
+            
+        return change,buy_button_bool
 
     def check_machine_coins(self, machine,change):
         #for key, value in vending_coin.items():
@@ -39,8 +44,6 @@ class VendingApp:
                 changedict.append(0)
             else:
                 coin_amount = math.floor(change/key)
-                print(coin_amount)
-                print(key)
                 dict_1[key]=value-coin_amount
                 changedict.append(coin_amount)
                 change = round(change - (coin_amount*key),2)
@@ -71,9 +74,9 @@ class VendingApp:
             self.ui.buybtn.setEnabled(True)
 
 
-    def remove_product(self,key):
+    def remove_product(self,key,machine):
         #Once item has been purchased remove item from stock
-        dict_3 = self.machine['produts']
+        dict_3 = machine['produts']
         value = dict_3[key]
         try:
             if value<1:

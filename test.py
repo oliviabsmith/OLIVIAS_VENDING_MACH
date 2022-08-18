@@ -13,10 +13,13 @@ class test(unittest.TestCase):
 
         result = VendingApp.change_vending(self,inserted_money,product_value)
 
-        self.assertEqual(result,0)
+        self.assertEqual(result,(0.0,False))
+
 
 
 
 if __name__ == '__main__':
     unittest.main()
+
+
 

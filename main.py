@@ -113,8 +113,6 @@ class MainWindow:
                 menu.display(self.product_cost)
                 VendingApp.check_machine_product(self,self.buy_product)
                 
-
-        
         
     def go_back(self):
         #Event when a back button is pressed
@@ -169,16 +167,23 @@ class MainWindow:
     def buy_vending(self):
         #check what the change amount should be
         self.ui.buybtn.setEnabled(False)
-        self.change = VendingApp.change_vending(self,self.input_total,self.product_cost)
-        self.change = round(self.change,2)
-        print(self.change)
+        self.changeven = VendingApp.change_vending(self,self.input_total,self.product_cost)
+        print(self.changeven)
+        self.change = round(self.changeven[0],2)
+            
+
+
         #check if they have entered enough money to buy product
-        if self.change >= 0:
+        if self.change >= 0 and self.changeven[1]==False:
             self.change_coins = VendingApp.check_machine_coins(self,self.machine,self.change)
             print(self.change_coins)
             self.ui.stackedWidget.setCurrentWidget(self.ui.change)
-            VendingApp.remove_product(self,self.buy_product)
+            VendingApp.remove_product(self,self.buy_product,self.machine)
             self.add_items()
+            self.ui.correct_money.setText(f"Thanks here is your ${self.change} change")
+        else:
+            self.ui.correct_money.setText(f"${self.change} missing from total.")# missing from total")
+            self.ui.buybtn.setEnabled(True)
 
     def add_items(self):
         #add change array to the table on self.ui.change
