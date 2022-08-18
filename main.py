@@ -85,6 +85,7 @@ class MainWindow:
         self.ui.fivebtn.clicked.connect(lambda: self.total_money(0.05))
 
     def total_money(self,input):
+        #cumulative total money entered so far
         self.input_total = self.input_total+input
         self.ui.total_money.display(self.input_total)
 
@@ -92,6 +93,7 @@ class MainWindow:
         self.main_window.show()
 
     def update_button(self,dict,button):
+        #update the buttons that can be pressed when choosing product
         for i in range(len(dict)):
             if dict[i] == button:
                 dict[i].setEnabled(False)
@@ -100,14 +102,13 @@ class MainWindow:
 
          
     def display_price(self,button,menu,dict,buttons):
-        displaymoney = 0
+        #display prices when a product button is pressed
         prices = dict['prices']
         for key, value in prices.items():
             if key==button.text():
                 self.buy_product = key
                 self.product_cost = value
                 self.machine = dict
-                #displaymoney = value
         self.update_button(buttons,button)   
         menu.display(self.product_cost)
         VendingApp.check_machine_product(self,self.buy_product)
@@ -134,11 +135,12 @@ class MainWindow:
         
 
     def enable_buttons(self,dict,input):
-        #set enabled buttons for dict
+        #set enabled buttons for stacked widget layout
         for i in range(len(dict)):
             text = dict[i]
             text.setEnabled(input)
 
+    #3 functions below to set individual layout when vending machine chosen
     def coffee_vending(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.coffee)
         self.ui.snack_btn.setEnabled(False)
@@ -154,6 +156,7 @@ class MainWindow:
         self.enable_buttons(self.drinkdict,True)
 
     def snack_vending(self):
+
         self.ui.stackedWidget.setCurrentWidget(self.ui.snack)
         self.ui.coffee_btn.setEnabled(False)
         self.ui.drink_btn.setEnabled(False)
@@ -162,10 +165,12 @@ class MainWindow:
 
 
     def buy_vending(self):
+        #check what the change amount should be
         self.ui.buybtn.setEnabled(False)
         self.change = VendingApp.change_vending(self)
         self.change = round(self.change,2)
         print(self.change)
+        #check if they have entered enough money to buy product
         if self.change >= 0:
             self.change_coins = VendingApp.check_machine_coins(self)
             self.ui.stackedWidget.setCurrentWidget(self.ui.change)
@@ -173,6 +178,7 @@ class MainWindow:
             self.add_items()
 
     def add_items(self):
+        #add change array to the table on self.ui.change
         list_ch = self.change_coins
         for i in range(len(list_ch)):
             item = QTableWidgetItem(str(list_ch[i]))
