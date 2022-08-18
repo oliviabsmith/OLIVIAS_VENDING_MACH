@@ -29,7 +29,7 @@ class MainWindow:
         self.drinkdict = [self.ui.onebtn,self.ui.fiftybtn,self.ui.twentybtn,self.ui.tenbtn]
         self.snackdict = [self.ui.onebtn,self.ui.fiftybtn,self.ui.twentybtn,self.ui.tenbtn,self.ui.fivebtn]
         
-        self.coffee_machine = {'coins':{1:15,0.5:15},'produts':{'Coffee':0,'Hot Chocolate': 10,'Hot Water':5},'prices':{'Coffee':1.50,'Hot Chocolate': 1.0,'Hot Water':0.5}}
+        self.coffee_machine = {'coins':{1:0,0.5:0},'produts':{'Coffee':0,'Hot Chocolate': 10,'Hot Water':5},'prices':{'Coffee':1.50,'Hot Chocolate': 1.0,'Hot Water':0.5}}
         self.drink_machine = {'coins':{1:15,0.5:15,0.2:5,0.1:3},'produts':{'Coke':12,'Water':7},'prices':{'Coke':1.20,'Water':0.70}}
         self.snack_machine = {'coins':{1:15,0.5:15,0.2:5,0.1:3,0.05:3},'produts':{'MM':25,'Crisps':19,'Snickers':130,'Pantera Rosa':70},'prices':{'MM':2.5,'Crisps':1.90,'Snickers':1.30,'Pantera Rosa':0.70}}
 
@@ -168,19 +168,18 @@ class MainWindow:
         #check what the change amount should be
         self.ui.buybtn.setEnabled(False)
         self.changeven = VendingApp.change_vending(self,self.input_total,self.product_cost)
-        print(self.changeven)
         self.change = round(self.changeven[0],2)
             
-
-
         #check if they have entered enough money to buy product
         if self.change >= 0 and self.changeven[1]==False:
             self.change_coins = VendingApp.check_machine_coins(self,self.machine,self.change)
-            print(self.change_coins)
-            self.ui.stackedWidget.setCurrentWidget(self.ui.change)
-            VendingApp.remove_product(self,self.buy_product,self.machine)
-            self.add_items()
-            self.ui.correct_money.setText(f"Thanks here is your ${self.change} change")
+            if self.change_coins[1] == False:
+                self.ui.correct_money.setText(f"change not available,insert exact amount")
+            else:
+                self.ui.stackedWidget.setCurrentWidget(self.ui.change)
+                VendingApp.remove_product(self,self.buy_product,self.machine)
+                self.add_items()
+                self.ui.correct_money.setText(f"Thanks here is your ${self.change} change")
         else:
             self.ui.correct_money.setText(f"${self.change} missing from total.")# missing from total")
             self.ui.buybtn.setEnabled(True)

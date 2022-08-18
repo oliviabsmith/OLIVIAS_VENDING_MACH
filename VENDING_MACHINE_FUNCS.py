@@ -8,7 +8,6 @@ from typing import final
 
 class VendingApp:
 
-
     def change_vending(self,inserted_money,value):
         
         #self.ui.buybtn.setEnabled(False)
@@ -25,9 +24,6 @@ class VendingApp:
                 raise ValueError(f"{missing} cents is missing from total")
         except ValueError as e:
             print(e)
-
-            #self.ui.correct_money.setText(f"${missing} missing from total.")# missing from total")
-            #self.ui.buybtn.setEnabled(True)
         else:
             buy_button_bool = False
             change = round(inserted_money-value,2)
@@ -38,6 +34,7 @@ class VendingApp:
         #for key, value in vending_coin.items():
         dict_1 = machine['coins']
         changedict = []
+        check_bool = True
         for key, value in dict_1.items():
 
             if value < 1 or change<=0:
@@ -47,14 +44,13 @@ class VendingApp:
                 dict_1[key]=value-coin_amount
                 changedict.append(coin_amount)
                 change = round(change - (coin_amount*key),2)
-                print(change)
         try:
             if change != 0:
-                self.ui.correct_money.setText(f"change not available")
+                check_bool = False
                 raise ValueError(f"Coins returned. not enough change, insert exact amount")
         except ValueError as e:
             print(e)
-        return changedict,change
+        return changedict,check_bool
 
 
     def check_machine_product(self,key):
