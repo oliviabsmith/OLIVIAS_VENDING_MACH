@@ -7,10 +7,8 @@ Run main.py
 
 FIXES TO DO
 
-- change below 0.50cent
-
 -add test for change_vending/check_machine_coins
 
--remove ui functions from Vending_mach_funcs
+-remove ui functions from Vending_mach_funcs (true/false bool and update in main)
 
 -add return button change screen
